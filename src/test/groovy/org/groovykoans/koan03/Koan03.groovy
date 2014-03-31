@@ -56,7 +56,7 @@ class Koan03 extends GroovyTestCase {
         def failed = true
         shouldFail (ReadOnlyPropertyException) {
             // ------------ START EDITING HERE ----------------------
-            person.ssn = '1234'
+            person.ssn = 'a'
             // ------------ STOP EDITING HERE  ----------------------
             failed = false
         }
@@ -78,7 +78,7 @@ class Koan03 extends GroovyTestCase {
         // Create a SimpleGroovyBean using named arguments, to represent a transaction with -30 as its data.
         def transaction
         // ------------ START EDITING HERE ----------------------
-        transaction = new SimpleGroovyBean(title: 'Transaction', data: -30)
+        transaction = new SimpleGroovyBean(data: -30)
         // ------------ STOP EDITING HERE  ----------------------
 
         assert transaction.data == -30

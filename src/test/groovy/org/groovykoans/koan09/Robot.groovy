@@ -18,33 +18,29 @@ package org.groovykoans.koan09
 
 import org.codehaus.groovy.runtime.InvokerHelper
 
+import javax.xml.ws.spi.Invoker
+
 class Robot {
     // ------------ START EDITING HERE ----------------------
     def x = 0, y = 0
-
-    void left() {
+    def left() {
         x--
     }
-
-    void right() {
+    def right() {
         x++
     }
-
-    void up() {
+    def up() {
         y++
     }
-
-    void down() {
+    def down() {
         y--
     }
-
-    Object invokeMethod(String methodName, Object args) {
-        if (methodName==~/go(Left|Right|Up|Down)*/) {
-            methodName.findAll(/(?i)(left|right|up|down)/) { match, String action ->
-                InvokerHelper.getMetaClass(this).invokeMethod(this, action.toLowerCase(), null)
-            }
-        }
-        null
+    def invokeMethod(String name, args) {
+         if (name ==~ /go(Left|Right|Up|Down)*/) {
+             name.findAll(/(Left|Right|Up|Down)/, { match, String action ->
+                 InvokerHelper.getMetaClass(this).invokeMethod(this, action.toLowerCase(), null)
+             })
+         }
     }
     // ------------ STOP EDITING HERE  ----------------------
 }

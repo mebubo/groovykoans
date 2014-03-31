@@ -37,18 +37,14 @@ class Koan08 extends GroovyTestCase {
 
         def magicClosure = { input ->
             // ------------ START EDITING HERE ----------------------
-            def result
             switch (input) {
                 case 1..100:
-                    result = input / 2
-                    break
+                    return input/2
                 case ~/.*ee/:
-                    result = "${input[0..input.size() - 3]}ey"
-                    break;
+                    return input.replaceAll(/ee$/, 'ey')
                 default:
-                    result = input
+                    return input
             }
-            result
             // ------------ STOP EDITING HERE  ----------------------
         }
         [5: 2.5, 'smile': 'smile', 'smilee': 'smiley', 'heehee': 'heehey'].each { key, expectedValue ->

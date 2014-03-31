@@ -136,9 +136,8 @@ class Koan04 extends GroovyTestCase {
         StringWriter filteredResult = new StringWriter()
         def prefix = 'src/test/groovy/org/groovykoans/koan04/'
         // ------------ START EDITING HERE ----------------------
-        def file = new File("$prefix/exercise.txt")
-        file.filterLine(filteredResult) { String line ->
-            !line.startsWith('#')
+        new File("$prefix/exercise.txt").filterLine(filteredResult) {
+            !it.startsWith('#')
         }
         // ------------ STOP EDITING HERE  ----------------------
 

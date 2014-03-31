@@ -44,10 +44,10 @@ class Koan06 extends GroovyTestCase {
         String groovyResult
         // ------------ START EDITING HERE ----------------------
         groovyResult = new StringBuilder().with {
-            append(/roses are #FF0000\n/)
-            append(/violets are #0000FF\n/)
-            append(/all my base\n/)
-            append(/are belong to you\n/)
+            append("roses are #FF0000\\n")
+            append("violets are #0000FF\\n");
+            append("all my base\\n")
+            append("are belong to you\\n")
             return it.toString()
         }
         // ------------ STOP EDITING HERE  ----------------------
@@ -77,9 +77,10 @@ class Koan06 extends GroovyTestCase {
         // under the src directory
         int count = 0
         // ------------ START EDITING HERE ----------------------
-        new File('src').eachFileRecurse { File file ->
-            if (!file.isDirectory() && file.text.contains('Lorem'))
+        new File("src").eachFileRecurse { File file ->
+            if(!file.isDirectory() && file.text.contains("Lorem")) {
                 count++
+            }
         }
         // ------------ STOP EDITING HERE  ----------------------
         assert count == 3

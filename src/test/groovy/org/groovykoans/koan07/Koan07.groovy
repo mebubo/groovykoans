@@ -40,7 +40,7 @@ class Koan07 extends GroovyTestCase {
         def technologies = ['Grails', 'Gradle', '.NET', 'Python', 'Groovy']
         def regexp
         // ------------ START EDITING HERE ----------------------
-        regexp = '^G.*[e|s]$'
+        regexp = '^G.*[es]$'
         // ------------ STOP EDITING HERE  ----------------------
         def result = technologies.findAll { it==~regexp }
 
@@ -122,12 +122,7 @@ and can become difficult to maintain"""
         def names = 'John Lennon, Paul McCartney, George Harrison, Ringo Starr'
         def firstNamesList = []
         // ------------ START EDITING HERE ----------------------
-        def matcher = names=~/(\w+)\s(\w+)/
-        matcher.each { match, first, last ->
-            firstNamesList << first
-        }
-        // Note - there are better ways to achieve the same in Groovy (String.eachMatch, Collections.collect, etc)
-        // but that's not the point of this specific exercise :)
+        firstNamesList = (names =~ /(\w+)\s(\w+)/).collect { it[1] }
         // ------------ STOP EDITING HERE  ----------------------
         assert firstNamesList == ['John', 'Paul', 'George', 'Ringo']
 
@@ -136,7 +131,7 @@ and can become difficult to maintain"""
         def number = '4927856234092'
         boolean isNumberValid = false
         // ------------ START EDITING HERE ----------------------
-        isNumberValid = number==~/^4[0-9]{12}(?:[0-9]{3})?$/
+        isNumberValid = number ==~ /^4[0-9]{12}(?:[0-9]{3})?$/
         // ------------ STOP EDITING HERE  ----------------------
         assert isNumberValid, 'Visa number should be valid!'
     }
@@ -155,7 +150,9 @@ and can become difficult to maintain"""
                       |In the land of submarines'''.stripMargin()
         def result
         // ------------ START EDITING HERE ----------------------
-        result = song.replaceAll(/\w+/) { dictionary[it] ?: it }
+        result = song.replaceAll(/\w+/) { word ->
+            dictionary[word] ?: word
+        }
         // ------------ STOP EDITING HERE  ----------------------
 
         def expected = '''|In the ciudad where I was born
@@ -181,11 +178,13 @@ and can become difficult to maintain"""
         String regexp
         // ------------ START EDITING HERE ----------------------
         regexp = /(?smx)
-                 (.*?)      # item name
-                 \s+        # space
-                 (\d+)      # number sold
-                 \s+        # space
-                 (\d+)      # leftover/
+                 (.?)    # skip
+                 \s+
+                 (\d+)   # sold
+                 \s+
+                 (\d+)   # leftover
+        /
+
         // ------------ STOP EDITING HERE  ----------------------
         def sum = text.findAll(regexp) { it[3].toInteger() }.sum()
         // ^^ This is even more concise than the previous example! Choose the one you feel most comfortable with.

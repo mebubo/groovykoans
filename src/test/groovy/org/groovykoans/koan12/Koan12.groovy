@@ -58,8 +58,8 @@ class Koan12 extends GroovyTestCase {
         long startTime = System.currentTimeMillis()
         // ------------ START EDITING HERE ----------------------
         def stub = new Expando();
-        stub.work = { number -> number + 10 }
-        factory.setWorker(stub)
+        stub.work = { int i -> i }
+        factory.worker = stub
         // ------------ STOP EDITING HERE  ----------------------
         factory.work()
         long endTime = System.currentTimeMillis()
@@ -72,8 +72,7 @@ class Koan12 extends GroovyTestCase {
         def staticFactory = new StaticFactory(numbers: [2, 3])
         startTime = System.currentTimeMillis()
         // ------------ START EDITING HERE ----------------------
-        Worker worker = { number -> number + 10 } as Worker
-        StaticFactory.metaClass.'static'.getWorker = { worker }
+        StaticFactory.metaClass.'static'.getWorker = { [work: { it }] }
         // ------------ STOP EDITING HERE  ----------------------
         staticFactory.work()
         endTime = System.currentTimeMillis()
